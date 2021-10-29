@@ -7,7 +7,7 @@
 3. Соберите отдельно образ с nginx, отдельно с приложением. Выставьте им теги grafana:app и grafana:static.
 
 
-Команда для сборки docker build -t grafana:app --target app .
+```Команда для сборки docker build -t grafana:app --target app .```
 
-Команда для сборки docker build -t grafana:static --target nginx .
+```Команда для сборки docker build -t grafana:static --target nginx .```
 
