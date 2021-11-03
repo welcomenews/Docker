@@ -29,8 +29,8 @@ RUN apk add --no-cache --virtual=.build-deps \
   && bundle config set --local deployment "true" \
   && bundle config set --local without "development,test" \
   && bundle install \
+  && yarn install \
   && apk del .build-deps \
-  && apk del curl \
-  && yarn install
+  && apk del curl
 
 
