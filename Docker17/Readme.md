@@ -1,4 +1,4 @@
-##DKR 17 Images. Использование нескольких Dockerfile
+## DKR 17 Images. Использование нескольких Dockerfile
 
 
 1. Создайте репозиторий в gitlab.rebrainme.com с именем dkr-17-alonetone.
