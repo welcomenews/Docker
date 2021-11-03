@@ -28,3 +28,7 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 $ sudo usermod -aG docker $USER
 
 $ newgrp docker
+
+
+# Полезные ссылки
+https://github.com/docker/awesome-compose  Примеры сборок различных приложений
