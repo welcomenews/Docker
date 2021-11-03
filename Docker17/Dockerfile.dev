@@ -29,7 +29,8 @@ RUN apk add --no-cache --virtual=.build-deps \
   && gem install bundler --pre \
   && bundle config set --local deployment "true" \
   && bundle install \
+  && yarn install \
   && apk del .build-deps \
-  && apk del curl \  
-  && yarn install
+  && apk del curl  
+  
 
