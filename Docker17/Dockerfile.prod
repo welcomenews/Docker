@@ -1,0 +1,36 @@
+
+FROM ruby:2.7.4-alpine3.14
+ENV RAILS_ENV=production
+
+RUN apk update && apk add --no-cache postgresql-client \
+    && apk add postgresql \
+    && apk add sqlite-libs \
+    && apk add mysql \
+    && apk add redis \
+    && apk add imagemagick \
+    && apk add libxml2-dev \
+    && apk add curl \
+    && apk add nodejs \
+    && apk add yarn \
+    && apk add libsndfile \
+    && mkdir /app
+
+WORKDIR /app
+
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
+COPY package.json /app/package.json
+COPY yarn.lock /app/yarn.lock
+COPY LICENSE /app/LICENSE
+
+RUN apk add --no-cache --virtual=.build-deps \
+  git openssh-client build-base mariadb-dev sqlite-dev libsndfile-dev \
+  && gem install bundler --pre \
+  && bundle config set --local deployment "true" \
+  && bundle config set --local without "development,test" \
+  && bundle install \
+  && apk del .build-deps \
+  && apk del curl \
+  && yarn install
+
+
