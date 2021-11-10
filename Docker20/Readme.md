@@ -8,6 +8,6 @@
 6. Сравните размеры получившихся образов.
 
 ```
-docker build -t dkr-20-counter:normal -f Dockerfile
-docker build -t dkr-20-counter:squash -f Dockerfile.mini
+docker build -t dkr-20-counter:normal -f Dockerfile .
+docker build -t dkr-20-counter:squash -f Dockerfile.mini .
 ```
