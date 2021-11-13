@@ -32,7 +32,8 @@ WORKDIR /app
 COPY . .
 
 RUN rm -rf Dockerfile* Pipfile* \
-    && rm -rf /.venv/lib/python3.7/site-packages/pip
+    && rm -rf /.venv/lib/python3.7/site-packages/pip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Run the application
 ENTRYPOINT ["python", "server.py"]
