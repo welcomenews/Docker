@@ -1,0 +1,31 @@
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /home/user/zookeeper
+COPY . .
+
+RUN apk update && apk add cppunit-dev \
+    py-setuptools \
+    python2 \
+    openldap-dev \
+    curl \
+    && echo "======= Install maven =======" \
+    && curl -O https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz \
+    && tar xzf apache-maven-3.8.3-bin.tar.gz -C /usr/local \
+    && rm apache-maven-3.8.3-bin.tar.gz \
+    && ln -s /usr/local/apache-maven-3.8.3 /usr/local/maven \
+    && touch maven.sh \
+    && echo "export PATH=$/usr/local/maven/bin:${PATH}" > maven.sh \
+    && mv maven.sh /etc/profile.d/maven.sh \
+    && /usr/local/maven/bin/mvn --version \
+    && echo "======= build app =======" \
+    && ls -l \
+    && /usr/local/maven/bin/mvn clean install -DskipTests \
+    && touch conf/zoo.cfg \
+    && echo "tickTime=2000" > conf/zoo.cfg \
+    && echo "dataDir=/var/lib/zookeeper" >> conf/zoo.cfg \
+    && echo "clientPort=2181" >> conf/zoo.cfg \
+    && apk del curl \
+    && rm -rf /usr/local/apache-maven-3.8.3 maven \
+    && rm -rf /var/cache/apk/*
+
+ENTRYPOINT [ "bin/zkServer.sh", "start" ]
