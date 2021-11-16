@@ -10,4 +10,5 @@
 Опционально: Объедините команду скачки/распаковки mvn, команду сборки приложения и команду удаления mvn (после сборки приложения менеджер пакетов не нужен в образе) в одну директиву RUN. Соберите образ заново оцените новые размеры образов и слоёв
 
 ``` docker build -t zookeeper-alpine:latest -f Dockerfile.alpine . ```
+
 ``` docker build -t zookeeper-buster:latest -f Dockerfile.buster . ```
