@@ -12,6 +12,7 @@
 7. Выведите список запущенных контейнеров.
 
 ```
+mkdir rbm27 && cd rbm27
 docker-compose -f docker-compose-unmounted.yml -p rbm27 up -d
 docker-compose -f docker-compose-unmounted.yml ps
 docker-compose -f docker-compose-mounted.yml -p rbm27 up -d
