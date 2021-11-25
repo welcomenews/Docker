@@ -1,0 +1,66 @@
+version: '3'
+
+volumes:
+  postgres:
+    
+networks:
+  gocalc_nginx:
+    driver: bridge
+  gocalc_postgres:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:10
+    restart: always
+    environment:
+       POSTGRES_PASSWORD: DatabasePassword 
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - gocalc_postgres
+
+  nginx:
+    image: nginx:stable
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - NET_RAW
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+#   network_mode: "host"
+    networks:
+      - gocalc_nginx
+    depends_on:
+      - db
+      - gocalc
+
+  gocalc:
+    build: app/
+    restart: unless-stopped
+    #    expose:
+    #      - 7000
+    ports:
+      - "7000:7000"
+    environment:
+            # PGDATABASE: postgres
+            #       PGUSER: postgres
+            #       PGPASSWORD: DatabasePassword
+       POSTGRES_URI: postgres://postgres:DatabasePassword@db/postgres?sslmode=disable
+       LISTEN_ADDRESS: :7000
+    networks:
+      - gocalc_nginx
+      - gocalc_postgres
+       #    links:
+       #      - db
+    depends_on:
+      - db
+
