@@ -17,11 +17,13 @@ git checkout -b dkr-29-compose-opt
 docker-compose -p rbm29 build
 docker-compose -p rbm29 up -d nginx
 docker exec -it rbm29_nginx_1 bash
-- ping app
-- PING app (172.21.0.2) 56(84) bytes of data.
-- 64 bytes from rbm29_app_1.rbm29_gocalc_nginx (172.21.0.2): icmp_seq=1 ttl=64 time=0.102 ms
-- 64 bytes from rbm29_app_1.rbm29_gocalc_nginx (172.21.0.2): icmp_seq=2 ttl=64 time=0.077 ms
-- ping postgres
-- ping: postgres: Temporary failure in name resolution
+
+root@338cf07c52e1:/# ping app
+PING app (172.21.0.2) 56(84) bytes of data.
+64 bytes from rbm29_app_1.rbm29_gocalc_nginx (172.21.0.2): icmp_seq=1 ttl=64 time=0.102 ms
+64 bytes from rbm29_app_1.rbm29_gocalc_nginx (172.21.0.2): icmp_seq=2 ttl=64 time=0.077 ms
+root@338cf07c52e1:/# ping postgres
+ping: postgres: Temporary failure in name resolution
+
 git push --set-upstream origin dkr-29-compose-opt
 ```
