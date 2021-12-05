@@ -1,6 +1,6 @@
 ## DKR 30: Compose. Запуск Compose со сборкой образа
 
-1. Склонируйте репозиторий voting в свой аккаунт на gitlab.rebrainme.com с именем dkr-30-voting.
+1. Склонируйте репозиторий https://gitlab.rebrainme.com/apps/voting в свой аккаунт на gitlab.rebrainme.com с именем dkr-30-voting.
 2. Напишите docker-compose.yml файл, который бы собирал приложение, запускал его и все требуемые зависимости:
 * nginx - проксирует запросы на voting и доступен на хосте на порту 20000
 пример конфигурационного файла находится в папке nginx, смонтируйте его в /etc/nginx/conf.d/default.conf.
