@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+    voting:
+      build: .
+      environment:
+         - DB_HOST=${DB_HOST}
+         - DB_NAME=${DB_DATABASE}
+         - DB_USERNAME=${DB_USERNAME}
+         - DB_PASSWORD=${DB_PASSWORD}
+      volumes:
+         - ./database.php:/var/www/html/config/database.php
+      depends_on:
+         - mysql
+           
+    mysql:
+      image: wangxian/alpine-mysql
+      restart: unless-stopped
+      environment:
+         - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+         - MYSQL_ALLOW_EMPTY_PASSWORD="yes"
+         - MYSQL_DATABASE=${DB_DATABASE}
+         - MYSQL_USER=${DB_USERNAME}
+         - MYSQL_PASSWORD=${DB_PASSWORD}
+           #      healthcheck:
+           #         test: ["CMD", "curl", "-f", "http://localhost"]
+              #         interval: 30s
+              #         retries: 5
+              #         start_period: 30s
+      volumes:
+         - ./db-data:/var/lib/mysql
+      expose:
+         - "3306"
+
+    redis:
+      image: redis:alpine
+      environment:
+         - REDIS_HOST=${REDIS_HOST}
+         - REDIS_PASSWORD=""
+      command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
+
+    nginx:
+      image: nginx:alpine
+      ports:
+         - "20000:80"
+      volumes:
+         - ./default.conf:/etc/nginx/conf.d/default.conf
+
+volumes:
+    db-data:
