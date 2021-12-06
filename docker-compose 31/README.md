@@ -26,3 +26,5 @@ exit
 
 curl localhost:20000/polls
 ```
+
+https://docs.fluentd.org/container-deployment/docker-compose
