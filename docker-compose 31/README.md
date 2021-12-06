@@ -12,6 +12,7 @@
 6. Откройте Kibana в браузере и проверьте, что логи запроса присутствуют.
 
 ```
+export GIT_SSL_NO_VERIFY=1
 git clone https://gitlab.rebrainme.com/docker_users_repos/1332/dkr-30-voting.git
 git checkout -b dkr-31-voting-efk
 docker-compose -p rbm31 up -d
