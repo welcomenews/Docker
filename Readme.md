@@ -32,3 +32,6 @@ $ newgrp docker
 
 ### Полезные ссылки
 https://github.com/docker/awesome-compose  Примеры сборок различных приложений
+
+https://github.com/wyveo/nginx-php-fpm/blob/master/Dockerfile   просто пример сборки
+
