@@ -27,3 +27,5 @@ docker push 46.101.182.75:5000/nginx:v1
 docker rmi -f 46.101.182.75:5000/nginx:v1
 docker pull 46.101.182.75:5000/nginx:v1
 ```
+
+https://hub.docker.com/_/registry?tab=description
