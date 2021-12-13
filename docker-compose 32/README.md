@@ -29,3 +29,12 @@ docker pull 46.101.182.75:5000/nginx:v1
 ```
 
 https://hub.docker.com/_/registry?tab=description
+
+
+Чтобы посмотреть список images в репозитории можно воспользоваться curl или браузером:
+
+http://192.168.1.18:5000/v2/_catalog
+
+curl -X GET http://192.168.0.19:5000/v2/_catalog
+
+
