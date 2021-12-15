@@ -28,3 +28,5 @@ curl localhost:20000/polls
 ```
 
 https://docs.fluentd.org/container-deployment/docker-compose
+
+https://docs.fluentd.org/v/0.12/articles/docker-logging-efk-compose
