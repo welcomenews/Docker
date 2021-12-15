@@ -37,4 +37,4 @@ http://192.168.1.18:5000/v2/_catalog
 
 curl -X GET http://192.168.0.19:5000/v2/_catalog
 
-
+Статья  https://winitpro.ru/index.php/2021/03/03/nastrojka-lokalnogo-docker-registry/
