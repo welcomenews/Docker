@@ -17,8 +17,8 @@
 ```
 ssh-copy-id user@IP-NODE2
 ssh-copy-id user@IP-NODE3
-docker context create node2 --default-stack-orchestrator=swarm --docker host=ssh://[user]@IP
-docker context create node3 --default-stack-orchestrator=swarm --docker host=ssh://[user]@IP
+docker context create node2 --default-stack-orchestrator=swarm --docker host=ssh://[user@]IP
+docker context create node3 --default-stack-orchestrator=swarm --docker host=ssh://[user@]IP
 docker context use node2
 docker info
 docker pull nginx:stable
