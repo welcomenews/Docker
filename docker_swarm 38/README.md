@@ -34,3 +34,11 @@ docker-compose config -f docker-compose.yml | docker stack deploy --with-registr
 curl -i voting.161.35.201.31:80/ping
 ```
 
+
+https://doc.traefik.io/traefik/v1.5/user-guide/docker-and-lets-encrypt/
+
+https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-18-04-ru
+
+https://github.com/moby/moby/issues/32957
+
+
