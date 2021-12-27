@@ -21,7 +21,7 @@ docker restart
 docker login registry.rebrainme.com
 git clone https://gitlab.rebrainme.com/docker_users_repos/1332/dkr-30-voting.git
 git checkout dkr-38-labels
-docker swarm init --advertise-addr 64.227.113.28  на ноде1(главная)
+docker swarm init --advertise-addr 161.35.201.31  на ноде1(главная)
 добавляем други ноды
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-38  (на главной ноде)
 или
@@ -31,6 +31,6 @@ env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -
 или
 docker-compose config -f docker-compose.yml | docker stack deploy --with-registry-auth dkr-38
 
-curl -i voting.64.227.113.28:80/ping
+curl -i voting.161.35.201.31:80/ping
 ```
 
