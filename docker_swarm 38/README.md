@@ -35,6 +35,8 @@ curl -i voting.161.35.201.31:80/ping
 ```
 
 
+https://dockerswarm.rocks/traefik/
+
 https://doc.traefik.io/traefik/v1.5/user-guide/docker-and-lets-encrypt/
 
 https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-18-04-ru
