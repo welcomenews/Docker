@@ -12,6 +12,7 @@
 10. При помощи команды curl с опцией -i обратитесь к каждой ноде по внешнему адресу и 80 порту по пути /ping (Для сервиса nginx должны быть 3 label, вида voting.x.x.x.x.nip.io, voting.y.y.y.y.nip.io, voting.z.z.z.z.nip.io, чтобы каждая из нод могла ответить на запрос).
 
 ```
+docker network create -d overlay traefik-public
 ### Create file daemon.json into /etc/docker/
 {
   "insecure-registries" : ["registry.rebrainme.com"]
