@@ -23,4 +23,9 @@ docker swarm init --advertise-addr 161.35.201.31  на ноде1(главная)
 docker network create -d overlay traefik-public
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-39  (на главной ноде)
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c docker-compose.yml dkr-39
+
+docker node ls
+docker stack ls
+docker service ls
+docker ps
 ```
