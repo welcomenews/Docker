@@ -4,15 +4,15 @@
 2. Выведите информацию о пирах на каждой ноде.
 3. Выведите информацию о созданном Volume.
 4. Подключите volume на каждой из нод к локальной директории.
-Создайте файл rbmdkr38 в подключенной директории.
-Выведите на каждой из нод содержимое директорий, используемых в volume, при помощи ls.
-Запускаем GlusterFS на 3 серверах в replicated режиме с 3 репликами.
-В репозитории из предыдущего задания используйте поддиректорию из подключенной директории как хранилище базы данных.
-Перезапустите стек.
-Накатите миграции и сиды на базу данных из контейнера с приложением.
-Выведите на каждой из нод содержимое директорий, используемых в volume, при помощи ls.
-При помощи curl обратитесь к сервису по доменному имени, указанному для traefik, и по endpoint /polls.
-Закоммитьте изменения в ветку dkr-38.
+5. Создайте файл rbmdkr38 в подключенной директории.
+6. Выведите на каждой из нод содержимое директорий, используемых в volume, при помощи ls.
+7. Запускаем GlusterFS на 3 серверах в replicated режиме с 3 репликами.
+8. В репозитории из предыдущего задания используйте поддиректорию из подключенной директории как хранилище базы данных.
+9. Перезапустите стек.
+10. Накатите миграции и сиды на базу данных из контейнера с приложением.
+11. Выведите на каждой из нод содержимое директорий, используемых в volume, при помощи ls.
+12. При помощи curl обратитесь к сервису по доменному имени, указанному для traefik, и по endpoint /polls.
+13. Закоммитьте изменения в ветку dkr-38.
 
 
 install
@@ -44,6 +44,21 @@ sudo mount -t glusterfs voting.165.232.78.24.nip.io:/gfs /mnt
 
 sudo gluster volume status
 
+### Create file daemon.json into /etc/docker/
+{
+  "insecure-registries" : ["registry.rebrainme.com"]
+}
+docker restart
+docker login registry.rebrainme.com
+git clone https://gitlab.rebrainme.com/docker_users_repos/1332/dkr-30-voting.git
+git checkout dkr-39-placement
+docker swarm init --advertise-addr 165.232.70.238  на ноде1(главная)
+добавляем други ноды
+docker network create -d overlay traefik-public
+env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-40  (на главной ноде)
+env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c docker-compose.yml dkr-40
+
+curl voting.165.232.78.24.nip.io/polls
 
 git push --set-upstream origin dkr-38
 ```
