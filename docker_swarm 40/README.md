@@ -70,3 +70,14 @@ curl voting.165.232.78.24.nip.io/polls
 
 git push --set-upstream origin dkr-38
 ```
+
+
+https://docs.gluster.org/en/latest/Quick-Start-Guide/Quickstart/
+
+https://medium.com/running-a-software-factory/setup-3-node-high-availability-cluster-with-glusterfs-and-docker-swarm-b4ff80c6b5c3
+
+https://www.howtoforge.com/tutorial/high-availability-storage-with-glusterfs-on-centos-7/
+
+https://theworkaround.com/2019/05/15/docker-swarm-persistent-storage.html
+
+https://www.svennd.be/installing-gluster-3-brick-distributed-centos-7/
