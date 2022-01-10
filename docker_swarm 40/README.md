@@ -30,14 +30,18 @@ sudo systemctl is-enabled glusterd.service
 sudo systemctl start glusterd.service
 sudo systemctl status glusterd.service
 
-sudo gluster peer probe node3; sudo gluster peer probe node2; sudo gluster peer probe node1
+sudo gluster peer probe voting.165.232.78.24.nip.io; sudo gluster peer probe voting.165.232.78.151.nip.io; sudo gluster peer probe voting.165.232.70.238.nip.io
 
 sudo gluster pool list
+
+на каждой ноде создаём volume
+sudo mkdir -p /data/gfs0
 
 sudo gluster volume create gfs replica 3 voting.165.232.78.24.nip.io:/data/gfs0/ voting.165.232.78.151.nip.io:/data/gfs0/ voting.165.232.70.238.nip.io:/data/gfs0/ force
 sudo gluster volume start gfs
 
-монтируем volume
+на каждой ноде монтируем СВОЙ volume
+один из нижних 3-х.
 sudo mount -t glusterfs voting.165.232.70.238.nip.io:/gfs /mnt
 sudo mount -t glusterfs voting.165.232.78.151.nip.io:/gfs /mnt
 sudo mount -t glusterfs voting.165.232.78.24.nip.io:/gfs /mnt
