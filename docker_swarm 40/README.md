@@ -58,6 +58,10 @@ docker network create -d overlay traefik-public
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-40  (на главной ноде)
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c docker-compose.yml dkr-40
 
+на ноде с voting сервисом запускаем миграции
+php artisan migrate --force
+php artisan db:seed --force
+
 curl voting.165.232.78.24.nip.io/polls
 
 git push --set-upstream origin dkr-38
