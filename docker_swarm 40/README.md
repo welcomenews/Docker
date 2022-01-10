@@ -30,4 +30,6 @@ sudo mount -t glusterfs voting.165.232.78.24.nip.io:/gfs /mnt
 
 sudo gluster volume status
 
+
+git push --set-upstream origin dkr-38
 ```
