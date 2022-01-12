@@ -28,7 +28,7 @@ sudo gluster peer probe voting.165.232.78.24.nip.io; sudo gluster peer probe vot
 sudo gluster pool list
 
 на каждой ноде создаём volume
-sudo mkdir -p /data/gfs0
+sudo mkdir -p /data/gfs0/volume
 
 sudo gluster volume create gfs replica 3 voting.165.232.78.24.nip.io:/data/gfs0/ voting.165.232.78.151.nip.io:/data/gfs0/ voting.165.232.70.238.nip.io:/data/gfs0/ force
 sudo gluster volume start gfs
