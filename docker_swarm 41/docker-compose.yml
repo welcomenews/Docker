@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+
+    voting:
+#      build: .
+#      image: 192.168.1.18:5000/voting
+      image: registry.rebrainme.com/docker_users_repos/1332/dkr-30-voting/voting
+      environment:
+         - DB_HOST=${DB_HOST}
+         - DB_NAME=${DB_DATABASE}
+         - DB_USERNAME=${DB_USERNAME}
+         - DB_PASSWORD=${DB_PASSWORD}
+      volumes:
+         - ./database.php:/var/www/html/config/database.php
+      networks:
+         - traefik-public
+      depends_on:
+         - mysql
+           
+    mysql:
+#      image: 192.168.1.18:5000/mysql
+      image: registry.rebrainme.com/docker_users_repos/1332/dkr-30-voting/mysql
+      restart: unless-stopped
+      environment:
+         - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+         - MYSQL_ALLOW_EMPTY_PASSWORD="yes"
+         - MYSQL_DATABASE=${DB_DATABASE}
+         - MYSQL_USER=${DB_USERNAME}
+         - MYSQL_PASSWORD=${DB_PASSWORD}
+           #      healthcheck:
+           #         test: ["CMD", "curl", "-f", "http://localhost"]
+              #         interval: 30s
+              #         retries: 5
+              #         start_period: 30s
+      volumes:
+         - vol:/var/lib/mysql
+      expose:
+         - "3306"
+      networks:
+         - traefik-public
+
+    redis:
+#      image: 192.168.1.18:5000/redis
+      image: registry.rebrainme.com/docker_users_repos/1332/dkr-30-voting/redis
+      environment:
+         - REDIS_HOST=${REDIS_HOST}
+         - REDIS_PASSWORD=""
+      command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
+      networks:
+         - traefik-public
+
+    nginx:
+#      image: 192.168.1.18:5000/nginx 
+      image: registry.rebrainme.com/docker_users_repos/1332/dkr-30-voting/nginx
+      volumes:
+         - ./default.conf:/etc/nginx/conf.d/default.conf
+      deploy:
+         mode: replicated
+         replicas: 3
+         labels:
+             - traefik.enable=true
+             - traefik.http.routers.nginx.rule=Host(`voting.165.232.67.185.nip.io`, `voting.165.232.67.187.nip.io`, `voting.165.232.67.184.nip.io`)
+             - traefik.http.services.nginx.loadbalancer.server.port=80
+         placement:
+             constraints:
+                - node.role == manager
+      networks:
+         - traefik-public
+      depends_on:
+         - voting
+
+volumes:
+    vol:
+      driver: glusterfs
+      name: "gfs/volume"
+         
+networks:
+  traefik-public:
+    external: true
