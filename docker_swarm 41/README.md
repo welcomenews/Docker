@@ -35,7 +35,7 @@ sudo gluster volume start gfs
 
 установка плагина
 на каждой ноде
-docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin --grant-all-permissions --disable
+docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin:v2.0.3 --grant-all-permissions --disable
 docker plugin set glusterfs SERVERS=node1,node2,node3
 docker plugin enable glusterfs
 sudo gluster volume status
