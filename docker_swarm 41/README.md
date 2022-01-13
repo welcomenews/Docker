@@ -47,7 +47,7 @@ sudo gluster volume status
 docker restart
 docker login registry.rebrainme.com
 git clone https://gitlab.rebrainme.com/docker_users_repos/1332/dkr-30-voting.git
-git checkout dkr-38
+git checkout dkr-39
 docker swarm init --advertise-addr 165.232.70.238  на ноде1(главная)
 добавляем други ноды как manager
 docker network create -d overlay traefik-public
