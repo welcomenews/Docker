@@ -24,6 +24,8 @@ php artisan polls:collect:status
 php vendor/bin/phpunit -c phpunit.xml
 exit
 
+http://localhost:5601
+
 curl localhost:20000/polls
 ```
 
