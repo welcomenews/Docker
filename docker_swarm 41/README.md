@@ -54,7 +54,7 @@ git checkout dkr-39
 docker swarm init --advertise-addr 165.232.70.238  на ноде1(главная)
 добавляем други ноды как manager
 docker network create -d overlay traefik-public
-docker volume ls
+docker network ls
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-41  (на главной ноде)
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c docker-compose.yml dkr-41
 
