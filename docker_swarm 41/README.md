@@ -30,15 +30,17 @@ sudo gluster pool list
 на каждой ноде создаём volume
 sudo mkdir -p /data/gfs0/volume
 
+на главной ноде
 sudo gluster volume create gfs replica 3 voting.165.232.78.24.nip.io:/data/gfs0/ voting.165.232.78.151.nip.io:/data/gfs0/ voting.165.232.70.238.nip.io:/data/gfs0/ force
 sudo gluster volume start gfs
+sudo gluster volume status
 
 установка плагина
 на каждой ноде
 docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin:v2.0.3 --grant-all-permissions --disable
 docker plugin set glusterfs SERVERS=node1,node2,node3
 docker plugin enable glusterfs
-sudo gluster volume status
+
 
 ### Create file daemon.json into /etc/docker/
 {
@@ -51,6 +53,7 @@ git checkout dkr-39
 docker swarm init --advertise-addr 165.232.70.238  на ноде1(главная)
 добавляем други ноды как manager
 docker network create -d overlay traefik-public
+docker volume ls
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c traefik-compose.yml traf-41  (на главной ноде)
 env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --with-registry-auth -c docker-compose.yml dkr-41
 
