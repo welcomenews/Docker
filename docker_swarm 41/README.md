@@ -40,6 +40,7 @@ sudo gluster volume status
 docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin:v2.0.3 --grant-all-permissions --disable
 docker plugin set glusterfs SERVERS=node1,node2,node3
 docker plugin enable glusterfs
+sudo docker plugin ls
 
 
 ### Create file daemon.json into /etc/docker/
