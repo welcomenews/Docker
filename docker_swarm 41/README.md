@@ -34,6 +34,7 @@ sudo mkdir -p /data/gfs0/volume
 sudo gluster volume create gfs replica 3 voting.165.232.78.24.nip.io:/data/gfs0/ voting.165.232.78.151.nip.io:/data/gfs0/ voting.165.232.70.238.nip.io:/data/gfs0/ force
 sudo gluster volume start gfs
 sudo gluster volume status
+sudo gluster volume info
 
 установка плагина
 на каждой ноде
