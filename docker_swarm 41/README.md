@@ -29,6 +29,7 @@ sudo gluster pool list
 
 на каждой ноде создаём volume
 sudo mkdir -p /data/gfs0/volume
+sudo chmod -R 775 /data/gfs0/volume
 
 на главной ноде
 sudo gluster volume create gfs replica 3 voting.165.232.78.24.nip.io:/data/gfs0/ voting.165.232.78.151.nip.io:/data/gfs0/ voting.165.232.70.238.nip.io:/data/gfs0/ force
