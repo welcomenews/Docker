@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  traefik:
+    image: traefik:v2.4
+    ports:
+      - 8080:8080
+      - 80:80
+      - 443:443
+    deploy:
+      placement:
+        constraints:
+             - node.role == manager
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command:
+      - --providers.docker.swarmmode
+      - --providers.docker=true
+      #- --entrypoints.web.address=:80
+      #      - --providers.docker.exposedByDefault=false
+      - --api.insecure=true
+        # labels:
+        #      - "traefik.enable=true"
+        #      - "traefik.http.middlewares.auth.basicauth.users=rebrainme:$$apr1$$8PZ1iUp8$$Pvbs6feOnyC4ofSNeySEi1"
+        #      - "traefik.http.routers.traefik.service=api@internal"
+        #      - "traefik.http.routers.traefik.middlewares=auth"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
