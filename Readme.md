@@ -37,7 +37,8 @@ https://github.com/wyveo/nginx-php-fpm/blob/master/Dockerfile   просто п�
 
 
 ### To download and install Docker Compose standalone, run:
+```
 sudo curl -SL https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
+```
