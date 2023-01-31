@@ -1,0 +1,32 @@
+---
+version: "3"
+
+services:
+  nginx:
+    image: nginx:stable
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./sites-available/:/etc/nginx/conf.d/
+      - ./certs:/certs
+      - ./logs:/var/log/nginx
+    links: 
+      - registry
+
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/mycert.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/mykey.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+    volumes:
+      - ./data:/var/lib/registry
+      - ./certs:/certs
+      - ./auth:/auth
