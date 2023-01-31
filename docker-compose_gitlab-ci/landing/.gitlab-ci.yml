@@ -1,0 +1,66 @@
+stages:
+  - build
+  - deploy
+
+build-image:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "$CI_PROJECT_DIR" --dockerfile "$CI_PROJECT_DIR/Dockerfile" --destination "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --cache=true
+
+.deploy:
+  stage: deploy
+  image: docker:latest
+  variables:
+    DOCKER_HOST: ""
+  script:
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+    - docker context create swarm --docker "host=tcp://${HOST},ca=${CA_FILE},cert=${CERT_FILE},key=${KEY_FILE}"
+    - docker --context swarm stack deploy -c ${FILE} --with-registry-auth landing-${ENV}
+
+deploy-to-prod:
+  extends: .deploy
+  environment:
+    name: prod
+  variables:
+    ENV: prod
+    HOST: rbr.kis.im:2376
+    FILE: docker-compose.prod.yml
+  when: manual
+
+deploy-to-dev:
+  extends: .deploy
+  environment:
+    name: dev
+  variables:
+    ENV: dev
+    HOST: dev.rbr.kis.im:2376
+    FILE: docker-compose.dev.yml
+  when: manual
+
+#pytest:
+#  services:
+#    - name: postgres:12.2-alpine
+#  variables:
+#    POSTGRES_HOST_AUTH_METHOD: trust
+#    POSTGRES_DB: pdb_tmp
+#    POSTGRES_USER: pdb_tmp_user
+#    POSTGRES_PASSWORD: ""
+#    POSTGRES_HOST: postgres
+#    POSTGRES_PORT: "5432"
+#  stage: test
+#  before_script:
+#    - mkdir -p ./.local-cache
+#    - ln -s $PWD/.local-cache ${HOME}/.local
+#    - export PATH=${HOME}/.local/bin:$PATH
+#    - export PIPENV_VENV_IN_PROJECT="enabled"
+#    - pip install pipenv pytest
+#    - pipenv install --dev --system --deploy --ignore-pipfile
+#    - git fetch
+#  script:
+#    - python -m pytest
+
