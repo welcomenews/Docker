@@ -29,6 +29,9 @@ $ sudo usermod -aG docker $USER
 
 $ newgrp docker
 
+#### Удалить none из имеджей
+docker rmi $(docker images -f "dangling=true" -q)
+
 
 ### Полезные ссылки
 https://github.com/docker/awesome-compose  Примеры сборок различных приложений
