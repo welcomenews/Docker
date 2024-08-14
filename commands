@@ -1,5 +1,10 @@
 
 ```
+
+# Очитска лишнего после сборки в Dockerfile
+rm -rf /var/lib/{apt,dpkg,cache,log}
+
+
 # Удалить имеджи с названиями none
 docker rmi -f $(docker images -f "dangling=true" -q)
 
