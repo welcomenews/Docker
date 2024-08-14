@@ -2,7 +2,7 @@
 ```
 
 # Очитска лишнего после сборки в Dockerfile
-rm -rf /var/lib/{apt,dpkg,cache,log}
+rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 
 # Удалить имеджи с названиями none
