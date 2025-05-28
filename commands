@@ -33,7 +33,7 @@ docker create
 docker exec -it <имя контейнера> <команда>
 
 # Вывести список контейнеров
-docker ls
+docker ps
 
 # удалить все остановленные контейнеры
 docker prune
