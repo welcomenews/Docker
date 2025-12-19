@@ -27,7 +27,7 @@ $ docker image prune
 # удалить вообще все образы (а не только dangling) одной командой
 $ docker image rm $(docker image ls -q)
 
-# удаления всех томов в Docker
+# удаления всех томов (volumes) в Docker
 $ docker volume rm $(docker volume ls -q)
 или
 $ docker volume prune
