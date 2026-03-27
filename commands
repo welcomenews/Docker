@@ -61,6 +61,9 @@ macvlan - для приложений требующих прямой конне
 # Создать сеть
 docker network create -d bridge <имя сети>
 
+# Смотреть все используемые сети контейнерами
+sudo docker network ls -q | xargs sudo docker network inspect
+
 # Смотретьлоги контейнера
 docker logs -f <имя контейнера>
 
